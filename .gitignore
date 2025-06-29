@@ -2,3 +2,4 @@ venv
 crm/__pycache__/*
 crm/migrations/__pycache__/*
 alx_backend_graphql_crm/__pycache__/*
+db.sqlite3
