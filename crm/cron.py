@@ -1,4 +1,6 @@
-import datetime
+import 
+from gql.transport.requests import RequestsHTTPTransport
+from gql import gql, Client
 import requests
 
 def update_low_stock():
@@ -32,5 +34,6 @@ def update_low_stock():
 
         print("Low-stock products updated.")
     except Exception as e:
-        with open("/tmp/low_stock_updates_log.txt", "a") as log:
+        with open("/tmp/crm_heartbeat_log.txt", "a") as log:
             log.write(f"\n[{now}] ERROR: {e}\n")
+
