@@ -441,3 +441,30 @@ class Mutation(graphene.ObjectType):
     bulk_create_customers = BulkCreateCustomers.Field()
     create_product = CreateProduct.Field()
     create_order = CreateOrder.Field()
+
+class ProductType(graphene.ObjectType):
+    name = graphene.String()
+    stock = graphene.Int()
+
+class UpdateLowStockProducts(graphene.Mutation):
+    class Output:
+        updated_products = graphene.List(ProductType)
+        success = graphene.String()
+
+    def mutate(self, info):
+        updated = []
+        for product in Product.objects.filter(stock__lt=10):
+            product.stock += 10
+            product.save()
+            updated.append(product)
+
+        return UpdateLowStockProducts(
+            updated_products=updated,
+            success=f"{len(updated)} product(s) updated."
+        )
+
+class Mutation(graphene.ObjectType):
+    update_low_stock_products = UpdateLowStockProducts.Field()
+
+# Register Mutation with the schema
+schema = graphene.Schema(query=..., mutation=Mutation)

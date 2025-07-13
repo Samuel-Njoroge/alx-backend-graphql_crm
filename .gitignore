@@ -3,3 +3,4 @@ crm/__pycache__/*
 crm/migrations/__pycache__/*
 alx-backend-graphql_crm/__pycache__/*
 db.sqlite3
+__pycache__
